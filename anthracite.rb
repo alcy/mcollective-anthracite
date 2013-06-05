@@ -18,7 +18,7 @@ module MCollective
         now = Time.now.to_i
         event_desc = "reqid=#{request.uniqid}: reqtime=#{request.time} caller=#{request.caller}@#{request.sender} agent=#{request.agent} action=#{request.action} data=#{request.data.pretty_print_inspect}"
         req = Net::HTTP::Post.new(uri.request_uri)
-        req.set_form_data({ "event_timestamp" => "#{now}", "event_tags" => "mcollective", "event_desc" => "#{event_desc}" })
+        req.set_form_data({ "event_timestamp" => "#{now}", "event_tags" => "mcollective, #{Config.instance.identity}", "event_desc" => "#{event_desc}" })
 
         begin
           response = http.request(req)
